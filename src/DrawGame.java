@@ -1,4 +1,12 @@
+import java.awt.Dimension;
 
-public class DrawGame {
+import javax.swing.JPanel;
 
+public class DrawGame extends JPanel{
+	
+	
+	public DrawGame() {
+		super();
+		this.setPreferredSize(new Dimension(800,640));
+	}
 }
