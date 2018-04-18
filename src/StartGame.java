@@ -16,6 +16,7 @@ public class StartGame extends JFrame{
 	
 	public static void main(String[] args) {
 		StartGame a=new StartGame();
+		System.out.println("Que pedotl");
 		
 	}
 }
