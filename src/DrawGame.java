@@ -89,8 +89,8 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 		g.fillRect(20, 600, this.getWidth()-40, 10);
 		
 		
-		g.fillRect(400+this.posx, 320+this.posy, 20, 20);
-		g.fillRect(this.comidaX, this.comidaY, 20, 20);
+		g.fillRect(400+this.posx, 320+this.posy, 20, 20);//Serpiente
+		g.fillRect(this.comidaX, this.comidaY, 20, 20);//Comida
 	}
 
 	
