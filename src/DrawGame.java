@@ -5,30 +5,56 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
-public class DrawGame extends JPanel implements KeyListener{
+public class DrawGame extends JPanel implements KeyListener, Runnable{
 	
 	private int posx;
 	private int posy;
+	private boolean Barriba,Babajo,
+							Bizquierda,
+							Bderecha;
 	public DrawGame() {
 		super();
 		this.posx=0;
 		this.posy=0;
+		this.Barriba=false;
+		this.Babajo=false;
+		this.Bderecha=false;
+		this.Bizquierda=false;
 		this.setPreferredSize(new Dimension(800,640));
 		this.addKeyListener(this);
 		setFocusable(true);
 		long start = System.currentTimeMillis();
+		Thread hilo=new Thread(this);
+		hilo.start();
 	}
 	
 	public void keyPressed (KeyEvent e) {
         int c = e.getKeyCode ();
         if (c==KeyEvent.VK_UP) { //movimiento arriba
-            this.posy-=5;
+            //this.posy-=5;
+        		this.Barriba=true;
+        		this.Babajo=false;
+        		this.Bderecha=false;
+        		this.Bizquierda=false;
+        		
         } else if(c==KeyEvent.VK_DOWN) { //movimiento abajo
-        	 this.posy+=5;
+        	 //this.posy+=5;
+        	this.Barriba=false;
+    		this.Babajo=true;
+    		this.Bderecha=false;
+    		this.Bizquierda=false;
         } else if(c==KeyEvent.VK_LEFT) {      //movimiento izquiera
-        	this.posx-=5;
+        	//this.posx-=5;
+        	this.Barriba=false;
+    		this.Babajo=false;
+    		this.Bderecha=false;
+    		this.Bizquierda=true;
         } else if(c==KeyEvent.VK_RIGHT) {   //movimiento derecha             
-        	this.posx+=5;
+        //	this.posx+=5;
+        	this.Barriba=false;
+    		this.Babajo=false;
+    		this.Bderecha=true;
+    		this.Bizquierda=false;
         }
         repaint();
     }
@@ -49,4 +75,40 @@ public class DrawGame extends JPanel implements KeyListener{
 		super.paintComponent(g);
 		g.fillRect(400+this.posx, 320+this.posy, 20, 20);
 	}
+
+	
+	public void run() {
+		try {
+			while(true) {
+				if(this.Barriba) {
+					
+					this.posy-=5;
+					repaint();
+				}
+				else if(this.Babajo) {
+					
+					this.posy+=5;
+					repaint();
+				}
+				else if(this.Bderecha) {
+					
+					this.posx+=5;
+					repaint();
+				}
+				else if(this.Bizquierda) {
+					
+					this.posx-=5;
+					repaint();
+				}
+				Thread.sleep(15);
+			}
+			
+		}
+			catch(InterruptedException e){
+				System.out.println("Se interrumpio el programa");
+			}
+		
+	}
+	
+
 }
