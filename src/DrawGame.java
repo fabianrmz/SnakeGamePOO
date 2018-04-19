@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
@@ -13,15 +14,21 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 	private boolean Barriba,Babajo,
 							Bizquierda,
 							Bderecha;
+	private int comidaX,
+				comidaY;
+	private Random random;
 	public DrawGame() {
 		super();
 		this.posx=0;
 		this.posy=0;
+		random = new Random();
+		this.comidaX=random.nextInt(600);
+		this.comidaY=random.nextInt(600);
 		this.Barriba=false;
 		this.Babajo=false;
 		this.Bderecha=false;
 		this.Bizquierda=false;
-		this.setPreferredSize(new Dimension(800,640));
+		this.setPreferredSize(new Dimension(600,600));
 		this.addKeyListener(this);
 		setFocusable(true);
 		long start = System.currentTimeMillis();
@@ -83,6 +90,7 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 		
 		
 		g.fillRect(400+this.posx, 320+this.posy, 20, 20);
+		g.fillRect(this.comidaX, this.comidaY, 20, 20);
 	}
 
 	
