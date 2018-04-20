@@ -84,9 +84,9 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 		g.setColor(Color.GREEN);
 		g.fillRect(0, 0, this.getWidth(),this.getHeight());
 		g.setColor(Color.black);
-		g.fillRect(20, 60, this.getWidth()-40, 10);//barra de arriba
-		g.fillRect(20, 90, this.getWidth()-40, 10);//Contorno
-		g.fillRect(20, 600, this.getWidth()-40, 10);
+		//g.fillRect(20, 60, this.getWidth()-40, 10);barra de arriba
+		//g.fillRect(20, 90, this.getWidth()-40, 10);Contorno
+		//g.fillRect(20, 600, this.getWidth()-40, 10);
 		
 		
 		g.fillRect(400+this.posx, 320+this.posy, 20, 20);//Serpiente
