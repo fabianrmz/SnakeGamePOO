@@ -19,8 +19,8 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 	private Random random;
 	public DrawGame() {
 		super();
-		this.posx=0;
-		this.posy=0;
+		this.posx=300;
+		this.posy=300;
 		random = new Random();
 		this.random();
 		this.Barriba=false;
@@ -99,14 +99,23 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 		super.paintComponent(g);
 		g.setColor(Color.GREEN);
 		g.fillRect(0, 0, this.getWidth(),this.getHeight());
+		g.setColor(Color.getHSBColor(9, 32, 37));
+		for(int i=0;i<600;i+=40) {
+			g.fillRect(i, 0, 20,600);
+			g.fillRect(0, i+20, 600,20);
+		}
 		g.setColor(Color.black);
 		//g.fillRect(20, 60, this.getWidth()-40, 10);barra de arriba
 		//g.fillRect(20, 90, this.getWidth()-40, 10);Contorno
 		//g.fillRect(20, 600, this.getWidth()-40, 10);
 		
 		
-		g.fillRect(400+this.posx, 320+this.posy, 20, 20);//Serpiente
+		g.fillRect(this.posx, this.posy, 20, 20);//Serpiente
 		g.fillRect(this.comidaX, this.comidaY, 20, 20);//Comida
+		
+		
+		
+		
 	}
 
 	
@@ -134,6 +143,7 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 					repaint();
 				}
 				Thread.sleep(80);
+				System.out.println();
 			}
 			
 		}
