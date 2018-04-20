@@ -18,12 +18,14 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 				comidaY;
 	private Random random;
 	private Puntaje puntajeH;
+	private Snake snake;
 	
 	public DrawGame(Puntaje p) {
 		super();
+		this.snake=new Snake();
 		this.puntajeH=p;
-		this.posx=300;
-		this.posy=300;
+		this.posx=this.snake.getX();
+		this.posy=this.snake.getY();
 		random = new Random();
 		this.Random();
 		this.Barriba=false;
@@ -114,7 +116,7 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 		//g.fillRect(20, 600, this.getWidth()-40, 10);
 		
 		
-		g.fillRect(this.posx, this.posy, 20, 20);//Serpiente
+		g.fillRect(this.snake.getX(), this.snake.getY(), 20, 20);//Serpiente
 		g.fillRect(this.comidaX, this.comidaY, 20, 20);//Comida
 		repaint();
 		
@@ -128,22 +130,22 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 			while(true) {
 				if(this.Barriba) {
 					
-					this.posy-=20;
+					this.snake.setY(-20);
 					repaint();
 				}
 				else if(this.Babajo) {
 					
-					this.posy+=20;
+					this.snake.setY(20);
 					repaint();
 				}
 				else if(this.Bderecha) {
 					
-					this.posx+=20;
+					this.snake.setX(20);
 					repaint();
 				}
 				else if(this.Bizquierda) {
 					
-					this.posx-=20;
+					this.snake.setX(-20);
 					repaint();
 				}
 				Thread.sleep(80);
@@ -158,7 +160,7 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 		
 	}
 	public void FrutaAtrapada() {
-		if(this.comidaX==this.posx && this.comidaY==this.posy) {
+		if(this.comidaX==this.snake.getX() && this.comidaY==this.snake.getY()) {
 			Random();
 			repaint();
 			
