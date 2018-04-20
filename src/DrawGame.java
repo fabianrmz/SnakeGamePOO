@@ -69,14 +69,15 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 	public void random() {
 		int x=random.nextInt(600);
 		int y =this.comidaY=random.nextInt(600);
-		if(x%20!=0 && y%20!=0) {
-			while(x%20!=0 && y%20!=0) {
+		if(x%20!=0 || y%20!=0) {
+			while(x%20!=0 || y%20!=0) {
 				x=random.nextInt(600);
 				y =this.comidaY=random.nextInt(600);
 			}
 		}
 		this.comidaX=x;
 		this.comidaY=y;
+		System.out.println(x+" "+ y);
 		
 		
 		
