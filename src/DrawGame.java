@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JPanel;
@@ -18,14 +19,14 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 				comidaY;
 	private Random random;
 	private Puntaje puntajeH;
-	private Snake snake;
+	
+	private ArrayList<Snake> CuerpoCoordenadas;
 	
 	public DrawGame(Puntaje p) {
 		super();
-		this.snake=new Snake();
+		CuerpoCoordenadas = new ArrayList<>(1);
+		CuerpoCoordenadas.add(0,new Snake(300,300));
 		this.puntajeH=p;
-		this.posx=this.snake.getX();
-		this.posy=this.snake.getY();
 		random = new Random();
 		this.Random();
 		this.Barriba=false;
@@ -82,7 +83,7 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 		}
 		this.comidaX=x;
 		this.comidaY=y;
-		System.out.println(x+" "+ y);
+		
 		repaint();
 		
 		
@@ -115,8 +116,11 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 		//g.fillRect(20, 90, this.getWidth()-40, 10);Contorno
 		//g.fillRect(20, 600, this.getWidth()-40, 10);
 		
+		for (int i = 0;i<this.CuerpoCoordenadas.size();i++) {
+			g.fillRect(this.CuerpoCoordenadas.get(i).getX(), this.CuerpoCoordenadas.get(i).getY(), 20, 20);//Serpiente
+		}
 		
-		g.fillRect(this.snake.getX(), this.snake.getY(), 20, 20);//Serpiente
+		
 		g.fillRect(this.comidaX, this.comidaY, 20, 20);//Comida
 		repaint();
 		
@@ -128,29 +132,32 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 	public void run() {
 		try {
 			while(true) {
-				if(this.Barriba) {
-					
-					this.snake.setY(-20);
-					repaint();
+				for(int i=0;i<this.CuerpoCoordenadas.size();i++) {
+					if(this.Barriba) {
+						
+						this.CuerpoCoordenadas.get(i).setY(-20);
+						repaint();
+					}
+					else if(this.Babajo) {
+						
+						this.CuerpoCoordenadas.get(i).setY(20);
+						repaint();
+					}
+					else if(this.Bderecha) {
+						
+						this.CuerpoCoordenadas.get(i).setX(20);
+						repaint();
+					}
+					else if(this.Bizquierda) {
+						
+						this.CuerpoCoordenadas.get(i).setX(-20);
+						repaint();
+					}
 				}
-				else if(this.Babajo) {
-					
-					this.snake.setY(20);
-					repaint();
-				}
-				else if(this.Bderecha) {
-					
-					this.snake.setX(20);
-					repaint();
-				}
-				else if(this.Bizquierda) {
-					
-					this.snake.setX(-20);
-					repaint();
-				}
+				
 				Thread.sleep(80);
 				FrutaAtrapada();
-				System.out.println();
+				
 			}
 			
 		}
@@ -160,8 +167,9 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 		
 	}
 	public void FrutaAtrapada() {
-		if(this.comidaX==this.snake.getX() && this.comidaY==this.snake.getY()) {
+		if(this.comidaX==this.CuerpoCoordenadas.get(0).getX() && this.comidaY==this.CuerpoCoordenadas.get(0).getY()) {
 			Random();
+			CuerpoCoordenadas.add(new Snake(this.CuerpoCoordenadas.get(this.CuerpoCoordenadas.size()-1).getX()-20,this.CuerpoCoordenadas.get(this.CuerpoCoordenadas.size()-1).getY()));
 			repaint();
 			
 		}

@@ -1,11 +1,12 @@
+import java.awt.Graphics;
 
 public class Snake {
 	private int posx,
 				posy;
 	
-	public Snake() {
-		this.posx=300;
-		this.posy=300;
+	public Snake(int x, int y) {
+		this.posx=x;
+		this.posy=y;
 	}
 	public void setX(int x) {
 		this.posx+=x;
@@ -19,4 +20,8 @@ public class Snake {
 	public int getY() {
 		return this.posy;
 	}
+	public void Dibujar(Graphics g) {
+		g.drawRect(this.posx, this.posy, 20, 20);
+	}
+	
 }
