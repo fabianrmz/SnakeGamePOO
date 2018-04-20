@@ -17,12 +17,15 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 	private int comidaX,
 				comidaY;
 	private Random random;
-	public DrawGame() {
+	private Puntaje puntajeH;
+	
+	public DrawGame(Puntaje p) {
 		super();
+		this.puntajeH=p;
 		this.posx=300;
 		this.posy=300;
 		random = new Random();
-		this.random();
+		this.Random();
 		this.Barriba=false;
 		this.Babajo=false;
 		this.Bderecha=false;
@@ -66,7 +69,7 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
         repaint();
     }
 	
-	public void random() {
+	public void Random() {
 		int x=random.nextInt(600);
 		int y =this.comidaY=random.nextInt(600);
 		if(x%20!=0 || y%20!=0) {
@@ -78,7 +81,7 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 		this.comidaX=x;
 		this.comidaY=y;
 		System.out.println(x+" "+ y);
-		
+		repaint();
 		
 		
 		
@@ -98,9 +101,9 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.setColor(Color.GREEN);
+		g.setColor(Color.decode("#b0dd56"));
 		g.fillRect(0, 0, this.getWidth(),this.getHeight());
-		g.setColor(Color.getHSBColor(9, 32, 37));
+		g.setColor(Color.decode("#97d125"));
 		for(int i=0;i<600;i+=40) {
 			g.fillRect(i, 0, 20,600);
 			g.fillRect(0, i+20, 600,20);
@@ -113,7 +116,7 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 		
 		g.fillRect(this.posx, this.posy, 20, 20);//Serpiente
 		g.fillRect(this.comidaX, this.comidaY, 20, 20);//Comida
-		
+		repaint();
 		
 		
 		
@@ -144,6 +147,7 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 					repaint();
 				}
 				Thread.sleep(80);
+				FrutaAtrapada();
 				System.out.println();
 			}
 			
@@ -153,6 +157,12 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 			}
 		
 	}
-	
+	public void FrutaAtrapada() {
+		if(this.comidaX==this.posx && this.comidaY==this.posy) {
+			Random();
+			repaint();
+			
+		}
+	}
 
 }
