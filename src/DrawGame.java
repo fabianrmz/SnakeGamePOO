@@ -133,7 +133,7 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 					this.posx-=20;
 					repaint();
 				}
-				Thread.sleep(70);
+				Thread.sleep(80);
 			}
 			
 		}

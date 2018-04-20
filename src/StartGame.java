@@ -8,7 +8,6 @@ public class StartGame extends JFrame{
 		super("Start to play");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		DrawGame game=new DrawGame();
-		
 		this.add(game);
 		this.pack();
 		this.setVisible(true);
