@@ -22,8 +22,7 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 		this.posx=0;
 		this.posy=0;
 		random = new Random();
-		this.comidaX=random.nextInt(600);
-		this.comidaY=random.nextInt(600);
+		this.random();
 		this.Barriba=false;
 		this.Babajo=false;
 		this.Bderecha=false;
@@ -66,7 +65,24 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
         }
         repaint();
     }
-
+	
+	public void random() {
+		int x=random.nextInt(600);
+		int y =this.comidaY=random.nextInt(600);
+		if(x%20!=0 && y%20!=0) {
+			while(x%20!=0 && y%20!=0) {
+				x=random.nextInt(600);
+				y =this.comidaY=random.nextInt(600);
+			}
+		}
+		this.comidaX=x;
+		this.comidaY=y;
+		
+		
+		
+		
+	}
+	
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -99,25 +115,25 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 			while(true) {
 				if(this.Barriba) {
 					
-					this.posy-=5;
+					this.posy-=20;
 					repaint();
 				}
 				else if(this.Babajo) {
 					
-					this.posy+=5;
+					this.posy+=20;
 					repaint();
 				}
 				else if(this.Bderecha) {
 					
-					this.posx+=5;
+					this.posx+=20;
 					repaint();
 				}
 				else if(this.Bizquierda) {
 					
-					this.posx-=5;
+					this.posx-=20;
 					repaint();
 				}
-				Thread.sleep(15);
+				Thread.sleep(70);
 			}
 			
 		}
