@@ -22,13 +22,18 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 	
 	private Snake anterior;
 	
+	private Thread hilo;
+	
 	private ArrayList<Snake> CuerpoCoordenadas;
+	
+	private boolean Gameplay;
 	
 	public DrawGame(Puntaje p) {
 		super();
 		CuerpoCoordenadas = new ArrayList<>(1);
 		CuerpoCoordenadas.add(0,new Snake(300,300));
 		this.puntajeH=p;
+		this.Gameplay=true;
 		random = new Random();
 		this.Random();
 		this.Barriba=false;
@@ -39,37 +44,29 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 		this.addKeyListener(this);
 		setFocusable(true);
 		long start = System.currentTimeMillis();
-		Thread hilo=new Thread(this);
+		hilo=new Thread(this);
 		hilo.start();
 	}
 	
 	public void keyPressed (KeyEvent e) {
         int c = e.getKeyCode ();
-        if (c==KeyEvent.VK_UP) { //movimiento arriba
-            //this.posy-=5;
+        if (c==KeyEvent.VK_UP && (!this.Babajo)) { //movimiento arriba
         		this.Barriba=true;
-        		this.Babajo=false;
         		this.Bderecha=false;
         		this.Bizquierda=false;
         		
-        } else if(c==KeyEvent.VK_DOWN) { //movimiento abajo
-        	 //this.posy+=5;
-        	this.Barriba=false;
+        } else if(c==KeyEvent.VK_DOWN && (!this.Barriba)) { //movimiento abajo
     		this.Babajo=true;
     		this.Bderecha=false;
     		this.Bizquierda=false;
-        } else if(c==KeyEvent.VK_LEFT) {      //movimiento izquiera
-        	//this.posx-=5;
+        } else if(c==KeyEvent.VK_LEFT && (!this.Bderecha)) {      //movimiento izquiera
         	this.Barriba=false;
     		this.Babajo=false;
-    		this.Bderecha=false;
     		this.Bizquierda=true;
-        } else if(c==KeyEvent.VK_RIGHT) {   //movimiento derecha             
-        //	this.posx+=5;
+        } else if(c==KeyEvent.VK_RIGHT && (!this.Bizquierda)) {   //movimiento derecha             
         	this.Barriba=false;
     		this.Babajo=false;
     		this.Bderecha=true;
-    		this.Bizquierda=false;
         }
         repaint();
     }
@@ -126,87 +123,51 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 		g.fillRect(this.comidaX, this.comidaY, 20, 20);//Comida
 		repaint();
 		
-		
-		
+	
 	}
 
 	
 	public void run() {
 		try {
-			while(true) {
-					if(this.CuerpoCoordenadas.size()==1) {
-						if(this.Barriba) {
-							this.CuerpoCoordenadas.get(0).setY(-20);
-							repaint();
-						}
-						else if(this.Babajo) {
-							
-							this.CuerpoCoordenadas.get(0).setY(20);
-							repaint();
-						}
-						else if(this.Bderecha) {
-							
-							this.CuerpoCoordenadas.get(0).setX(20);
-							repaint();
-						}
-						else if(this.Bizquierda) {
-							this.CuerpoCoordenadas.get(0).setX(-20);
-							repaint();
-						}
-					} else {
-						for(int i=1;i<this.CuerpoCoordenadas.size();i++) {
-							 this.anterior=this.CuerpoCoordenadas.get(i-1);
-							this.CuerpoCoordenadas.set(i,new Snake(anterior.getX(),anterior.getY()));
-							
-							if(this.Barriba) {
-								this.CuerpoCoordenadas.get(0).setY(-20);
-								repaint();
-							}
-							else if(this.Babajo) {
-								
-								this.CuerpoCoordenadas.get(0).setY(20);
-								repaint();
-							}
-							else if(this.Bderecha) {
-								
-								this.CuerpoCoordenadas.get(0).setX(20);
-								repaint();
-							}
-							else if(this.Bizquierda) {
-								this.CuerpoCoordenadas.get(0).setX(-20);
-								repaint();
-							}
-						}
-						
-					}
-					
-
+			while(this.Gameplay) {
 				
-				Thread.sleep(80);
-				FrutaAtrapada();
-				
-			}
+			Thread.sleep(80);
+			FrutaAtrapada();
+			mover();
 			
 		}
-			catch(InterruptedException e){
-				System.out.println("Se interrumpio el programa");
-			}
+			
+		}
+		catch(InterruptedException e){
+			System.out.println("Se interrumpio el programa");
+		}
 		
 	}
+	
+	public void mover() {
+		if(this.Barriba) {
+			this.CuerpoCoordenadas.get(0).setY(-20);
+			repaint();
+		}
+		else if(this.Babajo) {												this.CuerpoCoordenadas.get(0).setY(20);
+			repaint();
+		}
+		else if(this.Bderecha) {
+				
+			this.CuerpoCoordenadas.get(0).setX(20);
+			repaint();
+		}
+		else if(this.Bizquierda) {
+			this.CuerpoCoordenadas.get(0).setX(-20);
+			repaint();
+		}
+	}
+	
 	public void FrutaAtrapada() {
 		if(this.comidaX==this.CuerpoCoordenadas.get(0).getX() && this.comidaY==this.CuerpoCoordenadas.get(0).getY()) {
 			Random();
-			if(this.CuerpoCoordenadas.size()==1) {
-				this.CuerpoCoordenadas.add(this.CuerpoCoordenadas.get(0));
-			}else {
-				this.CuerpoCoordenadas.add(this.anterior);
-				for(int i =0;i<this.CuerpoCoordenadas.size();i++) {
-					System.out.println(this.CuerpoCoordenadas.get(i));
-				}
-			}
-			repaint();
-			
 		}
 	}
+	
 
 }
