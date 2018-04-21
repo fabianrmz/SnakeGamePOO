@@ -11,12 +11,11 @@ public class StartGame extends JFrame{
 		DrawGame game=new DrawGame(punt);
 		
 		this.add(game);
-		this.add(punt,BorderLayout.EAST);
+		this.add(punt,BorderLayout.WEST);
 		this.pack();
+		this.setLocationRelativeTo(null); 
 		this.setVisible(true);
 	}
 	
-	public static void main(String[] args) {
-		StartGame a=new StartGame();
-	}
+	
 }

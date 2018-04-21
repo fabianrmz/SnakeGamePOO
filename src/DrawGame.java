@@ -130,7 +130,7 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 		g.setColor(Color.decode("#97d125"));
 		//Crea los cuadrados en multiplos de 20
 		for(int i=0;i<600;i+=40) {
-			g.fillRect(i, 0, 20,600);
+			g.fillRect(i+20, 0, 20,600);
 			g.fillRect(0, i+20, 600,20);
 		}
 		//Color de la comida y de la serpiente
@@ -229,6 +229,11 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 				}
 			}
 		}
+		
+	}
+	
+	
+	public void TerminarJuego() {
 		
 	}
 	

@@ -14,4 +14,21 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>24eab460d2f094474e47fb01565c8e28.gif</name>
+			<type>1</type>
+			<location>C:/Users/Fabian Ramirez/eclipse-workspace/SnakeGamePOO/24eab460d2f094474e47fb01565c8e28.gif</location>
+		</link>
+		<link>
+			<name>background.gif</name>
+			<type>1</type>
+			<location>C:/Users/Fabian Ramirez/eclipse-workspace/SnakeGamePOO/background.gif</location>
+		</link>
+		<link>
+			<name>logo.png</name>
+			<type>1</type>
+			<location>C:/Users/Fabian Ramirez/eclipse-workspace/SnakeGamePOO/logo.png</location>
+		</link>
+	</linkedResources>
 </projectDescription>
