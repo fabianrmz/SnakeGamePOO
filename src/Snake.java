@@ -20,8 +20,8 @@ public class Snake {
 	public int getY() {
 		return this.posy;
 	}
-	public void Dibujar(Graphics g) {
-		g.drawRect(this.posx, this.posy, 20, 20);
+	public String toString() {
+		return "X"+this.posx+"y"+this.posy;
 	}
 	
 }

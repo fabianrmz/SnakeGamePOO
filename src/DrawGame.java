@@ -20,6 +20,8 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 	private Random random;
 	private Puntaje puntajeH;
 	
+	private Snake anterior;
+	
 	private ArrayList<Snake> CuerpoCoordenadas;
 	
 	public DrawGame(Puntaje p) {
@@ -132,28 +134,53 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 	public void run() {
 		try {
 			while(true) {
-				for(int i=0;i<this.CuerpoCoordenadas.size();i++) {
-					if(this.Barriba) {
+					if(this.CuerpoCoordenadas.size()==1) {
+						if(this.Barriba) {
+							this.CuerpoCoordenadas.get(0).setY(-20);
+							repaint();
+						}
+						else if(this.Babajo) {
+							
+							this.CuerpoCoordenadas.get(0).setY(20);
+							repaint();
+						}
+						else if(this.Bderecha) {
+							
+							this.CuerpoCoordenadas.get(0).setX(20);
+							repaint();
+						}
+						else if(this.Bizquierda) {
+							this.CuerpoCoordenadas.get(0).setX(-20);
+							repaint();
+						}
+					} else {
+						for(int i=1;i<this.CuerpoCoordenadas.size();i++) {
+							 this.anterior=this.CuerpoCoordenadas.get(i-1);
+							this.CuerpoCoordenadas.set(i,new Snake(anterior.getX(),anterior.getY()));
+							
+							if(this.Barriba) {
+								this.CuerpoCoordenadas.get(0).setY(-20);
+								repaint();
+							}
+							else if(this.Babajo) {
+								
+								this.CuerpoCoordenadas.get(0).setY(20);
+								repaint();
+							}
+							else if(this.Bderecha) {
+								
+								this.CuerpoCoordenadas.get(0).setX(20);
+								repaint();
+							}
+							else if(this.Bizquierda) {
+								this.CuerpoCoordenadas.get(0).setX(-20);
+								repaint();
+							}
+						}
 						
-						this.CuerpoCoordenadas.get(i).setY(-20);
-						repaint();
 					}
-					else if(this.Babajo) {
-						
-						this.CuerpoCoordenadas.get(i).setY(20);
-						repaint();
-					}
-					else if(this.Bderecha) {
-						
-						this.CuerpoCoordenadas.get(i).setX(20);
-						repaint();
-					}
-					else if(this.Bizquierda) {
-						
-						this.CuerpoCoordenadas.get(i).setX(-20);
-						repaint();
-					}
-				}
+					
+
 				
 				Thread.sleep(80);
 				FrutaAtrapada();
@@ -169,7 +196,14 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 	public void FrutaAtrapada() {
 		if(this.comidaX==this.CuerpoCoordenadas.get(0).getX() && this.comidaY==this.CuerpoCoordenadas.get(0).getY()) {
 			Random();
-			CuerpoCoordenadas.add(new Snake(this.CuerpoCoordenadas.get(this.CuerpoCoordenadas.size()-1).getX()-20,this.CuerpoCoordenadas.get(this.CuerpoCoordenadas.size()-1).getY()));
+			if(this.CuerpoCoordenadas.size()==1) {
+				this.CuerpoCoordenadas.add(this.CuerpoCoordenadas.get(0));
+			}else {
+				this.CuerpoCoordenadas.add(this.anterior);
+				for(int i =0;i<this.CuerpoCoordenadas.size();i++) {
+					System.out.println(this.CuerpoCoordenadas.get(i));
+				}
+			}
 			repaint();
 			
 		}
