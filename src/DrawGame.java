@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class DrawGame extends JPanel implements Runnable, KeyListener {
@@ -151,11 +152,12 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 			while(this.Gameplay) {
 				//Velocidad del juego
 				Thread.sleep(80);
+				//Revisa las coliciones
+				this.coliciones();
 				//Que hacer cuando atrapa la fruta
 				this.FrutaAtrapada();
 				//Movimiento de la serpiente
 				this.mover();
-				
 				repaint();
 			
 			}
@@ -208,6 +210,26 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 			this.Random();
 			
 		}
+	}
+	
+	public void coliciones() {
+		if(this.CuerpoCoordenadas.get(0).getX()<0 || this.CuerpoCoordenadas.get(0).getX()>600) {
+			JOptionPane.showMessageDialog(this,"Juego terminado");
+			this.Gameplay=false;
+		}
+		else if(this.CuerpoCoordenadas.get(0).getY()<0 || this.CuerpoCoordenadas.get(0).getY()>600) {
+			JOptionPane.showMessageDialog(this,"Juego terminado");
+			this.Gameplay=false;
+		}
+		else {
+			for(int i=1;i<this.CuerpoCoordenadas.size();i++) {
+				if((this.CuerpoCoordenadas.get(0).getX()  == this.CuerpoCoordenadas.get(i).getX())  && (this.CuerpoCoordenadas.get(0).getY()== this.CuerpoCoordenadas.get(i).getY())) {
+					JOptionPane.showMessageDialog(this,"Juego terminado");
+					this.Gameplay=false;
+				}
+			}
+		}
+		
 	}
 	
 
