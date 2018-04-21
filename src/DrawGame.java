@@ -10,47 +10,63 @@ import javax.swing.JPanel;
 
 public class DrawGame extends JPanel implements Runnable, KeyListener {
 	
-	private int posx;
-	private int posy;
-	private boolean Barriba,Babajo,
-							Bizquierda,
-							Bderecha;
+	private boolean Barriba,
+					Babajo,
+					Bizquierda,
+					Bderecha,
+					Gameplay;
+					
 	private int comidaX,
-				comidaY;
+				comidaY,
+				cuerpo,
+				 posx,
+				 posy;
+	
 	private Random random;
 	private Puntaje puntajeH;
 	
-	private int cuerpo;
+	
 	
 	
 	private Thread hilo;
 	
 	private ArrayList<Snake> CuerpoCoordenadas;
 	
-	private boolean Gameplay;
+
 	
 	public DrawGame(Puntaje p) {
 		super();
+		//Array de coordenadas de la serpiente
 		CuerpoCoordenadas = new ArrayList<>();
+		//Posición inicial
 		CuerpoCoordenadas.add(0,new Snake(300,300));
+		//Panel puntaje
 		this.puntajeH=p;
+		//Variable útil para parar el juego
 		this.Gameplay=true;
+		//Crea la posición de la fruta random
 		random = new Random();
 		this.Random();
+		//Booleanos de movimiento
 		this.Barriba=false;
 		this.Babajo=false;
 		this.Bderecha=false;
 		this.Bizquierda=false;
+		//Dimensiones
 		this.setPreferredSize(new Dimension(600,600));
+		//Keylistener
 		this.addKeyListener(this);
 		setFocusable(true);
 		long start = System.currentTimeMillis();
+		
 		hilo=new Thread(this);
 		hilo.start();
 	}
 	
+	//Detectar movimientos
 	public void keyPressed (KeyEvent e) {
         int c = e.getKeyCode ();
+        
         if (c==KeyEvent.VK_UP && (!this.Babajo)) { //movimiento arriba
         		this.Barriba=true;
         		this.Bderecha=false;
@@ -72,14 +88,15 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
         repaint();
     }
 	
+	//Crea un nuevo número random en caso de conseguir la fruta
 	public void Random() {
 		int x=random.nextInt(600);
 		int y =this.comidaY=random.nextInt(600);
-		if(x%20!=0 || y%20!=0) {
-			while(x%20!=0 || y%20!=0) {
+		//Solo pueden ser multiplos de 20, esto con el propósito
+		//de hacer que coincida con el movimiento de la sepriente
+		while(x%20!=0 || y%20!=0) {
 				x=random.nextInt(600);
-				y =this.comidaY=random.nextInt(600);
-			}
+				y=this.comidaY=random.nextInt(600);
 		}
 		this.comidaX=x;
 		this.comidaY=y;
@@ -104,18 +121,19 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		//Color verde
 		g.setColor(Color.decode("#b0dd56"));
+		//Retcnagulo de fondo
 		g.fillRect(0, 0, this.getWidth(),this.getHeight());
+		//Color verde claro
 		g.setColor(Color.decode("#97d125"));
+		//Crea los cuadrados en multiplos de 20
 		for(int i=0;i<600;i+=40) {
 			g.fillRect(i, 0, 20,600);
 			g.fillRect(0, i+20, 600,20);
 		}
+		//Color de la comida y de la serpiente
 		g.setColor(Color.black);
-		//g.fillRect(20, 60, this.getWidth()-40, 10);barra de arriba
-		//g.fillRect(20, 90, this.getWidth()-40, 10);Contorno
-		//g.fillRect(20, 600, this.getWidth()-40, 10);
-		
 		for (int i = 0;i<this.CuerpoCoordenadas.size();i++) {
 			g.fillRect(this.CuerpoCoordenadas.get(i).getX(), this.CuerpoCoordenadas.get(i).getY(), 20, 20);//Serpiente
 		}
@@ -131,13 +149,16 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 	public void run() {
 		try {
 			while(this.Gameplay) {
+				//Velocidad del juego
+				Thread.sleep(80);
+				//Que hacer cuando atrapa la fruta
+				this.FrutaAtrapada();
+				//Movimiento de la serpiente
+				this.mover();
 				
-			Thread.sleep(80);
-			FrutaAtrapada();
-			mover();
-			repaint();
+				repaint();
 			
-		}
+			}
 			
 		}
 		catch(InterruptedException e){
@@ -147,7 +168,9 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 	}
 	
 	public void mover() {
+		//Este ciclo sirve para hacer que el cuerpo de la sepriente siga la cabeza
 		for (int i = this.cuerpo; i > 0; i--) {
+			//Este if previene nullpointerexceptions
 			if(i<this.CuerpoCoordenadas.size()) {
 				this.CuerpoCoordenadas.set(i, new Snake(this.CuerpoCoordenadas.get(i-1).getX(),this.CuerpoCoordenadas.get(i-1).getY()));
 			}else {
@@ -156,17 +179,20 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 			}
 		     
 		}
-		
+		//Mueve la cabeza hacia arriba
 		if(this.Barriba) {
 			this.CuerpoCoordenadas.get(0).setY(-20);
 		}
+		//Mueve la cabeza hacia abajo
 		else if(this.Babajo) {												
 			this.CuerpoCoordenadas.get(0).setY(20);
 		}
+		//Mueve la cabeza hacia la derecha
 		else if(this.Bderecha) {
 				
 			this.CuerpoCoordenadas.get(0).setX(20);
 		}
+		//Mueve la cabeza hacia la izquierda
 		else if(this.Bizquierda) {
 			this.CuerpoCoordenadas.get(0).setX(-20);
 			
@@ -174,9 +200,12 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 	}
 	
 	public void FrutaAtrapada() {
+		//Si las coordenadas de la cabeza coinciden con las coordenadas de la fruta
 		if(this.comidaX==this.CuerpoCoordenadas.get(0).getX() && this.comidaY==this.CuerpoCoordenadas.get(0).getY()) {
+			//Aumenta el tamaño del cuerpo
 			this.cuerpo++;
-			Random();
+			//Crea nuevas coordenadas para la fruta
+			this.Random();
 			
 		}
 	}
