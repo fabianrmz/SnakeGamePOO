@@ -8,7 +8,7 @@ import java.util.Random;
 
 import javax.swing.JPanel;
 
-public class DrawGame extends JPanel implements KeyListener, Runnable{
+public class DrawGame extends JPanel implements Runnable, KeyListener {
 	
 	private int posx;
 	private int posy;
@@ -20,7 +20,8 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 	private Random random;
 	private Puntaje puntajeH;
 	
-	private Snake anterior;
+	private int cuerpo;
+	
 	
 	private Thread hilo;
 	
@@ -30,7 +31,7 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 	
 	public DrawGame(Puntaje p) {
 		super();
-		CuerpoCoordenadas = new ArrayList<>(1);
+		CuerpoCoordenadas = new ArrayList<>();
 		CuerpoCoordenadas.add(0,new Snake(300,300));
 		this.puntajeH=p;
 		this.Gameplay=true;
@@ -134,6 +135,7 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 			Thread.sleep(80);
 			FrutaAtrapada();
 			mover();
+			repaint();
 			
 		}
 			
@@ -145,27 +147,37 @@ public class DrawGame extends JPanel implements KeyListener, Runnable{
 	}
 	
 	public void mover() {
+		for (int i = this.cuerpo; i > 0; i--) {
+			if(i<this.CuerpoCoordenadas.size()) {
+				this.CuerpoCoordenadas.set(i, new Snake(this.CuerpoCoordenadas.get(i-1).getX(),this.CuerpoCoordenadas.get(i-1).getY()));
+			}else {
+				this.CuerpoCoordenadas.add(null);
+				this.CuerpoCoordenadas.set(i, new Snake(this.CuerpoCoordenadas.get(i-1).getX(),this.CuerpoCoordenadas.get(i-1).getY()));
+			}
+		     
+		}
+		
 		if(this.Barriba) {
 			this.CuerpoCoordenadas.get(0).setY(-20);
-			repaint();
 		}
-		else if(this.Babajo) {												this.CuerpoCoordenadas.get(0).setY(20);
-			repaint();
+		else if(this.Babajo) {												
+			this.CuerpoCoordenadas.get(0).setY(20);
 		}
 		else if(this.Bderecha) {
 				
 			this.CuerpoCoordenadas.get(0).setX(20);
-			repaint();
 		}
 		else if(this.Bizquierda) {
 			this.CuerpoCoordenadas.get(0).setX(-20);
-			repaint();
+			
 		}
 	}
 	
 	public void FrutaAtrapada() {
 		if(this.comidaX==this.CuerpoCoordenadas.get(0).getX() && this.comidaY==this.CuerpoCoordenadas.get(0).getY()) {
+			this.cuerpo++;
 			Random();
+			
 		}
 	}
 	
