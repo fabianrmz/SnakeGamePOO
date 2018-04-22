@@ -1,29 +1,41 @@
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Puntaje extends JPanel{
+public class Puntaje extends JPanel {
 	
 	private Button Pausa;
-	private JLabel Score;
-	private JLabel HScore;
 	
 	private int Puntuacion;
 	private int PuntacionMA;
-	
-	
-	public Puntaje() {
-		this.setSize(new Dimension(600,600));
+	private DrawGame g;
+	private int score;
+	private DrawGame game;
+	public Puntaje(DrawGame game) {
+		this.game=g;
+		this.setSize(new Dimension(150,600));
 		this.setBackground(Color.decode("#96cc2c"));
-		this.Pausa=new Button("Pausa");
-		this.add(this.Pausa);
-		this.Score=new JLabel("aaaa");
-		this.add(this.Score);
+		this.add(new JLabel("                          "));
+		
+		
+		
+	}
+
+
+	public void addScore(int nivel) {
+		this.Puntuacion+=(100*nivel);
 	}
 	
 	
+	public void PaintComponent(Graphics g) {
+		super.paint(g);
+		g.drawString(this.Puntuacion+"", 0, 0);
+	}
+
+
 	
 }

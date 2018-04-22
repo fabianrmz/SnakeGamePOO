@@ -24,25 +24,22 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 				 posy;
 	
 	private Random random;
-	private Puntaje puntajeH;
 	
 	
-	
+	private int nivel;
 	
 	private Thread hilo;
 	
 	private ArrayList<Snake> CuerpoCoordenadas;
 	
-
 	
-	public DrawGame(Puntaje p) {
+	public DrawGame() {
 		super();
 		//Array de coordenadas de la serpiente
 		CuerpoCoordenadas = new ArrayList<>();
 		//Posición inicial
 		CuerpoCoordenadas.add(0,new Snake(300,300));
 		//Panel puntaje
-		this.puntajeH=p;
 		//Variable útil para parar el juego
 		this.Gameplay=true;
 		//Crea la posición de la fruta random
@@ -59,7 +56,7 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 		this.addKeyListener(this);
 		setFocusable(true);
 		long start = System.currentTimeMillis();
-		
+		this.nivel=0;
 		hilo=new Thread(this);
 		hilo.start();
 	}
@@ -208,7 +205,7 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 			this.cuerpo++;
 			//Crea nuevas coordenadas para la fruta
 			this.Random();
-			
+			this.nivel++;
 		}
 	}
 	
@@ -233,9 +230,10 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 	}
 	
 	
-	public void TerminarJuego() {
+	
+	public int getPuntuacion() {
+		return this.nivel;
 		
 	}
-	
 
 }

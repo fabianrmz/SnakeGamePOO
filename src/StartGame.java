@@ -7,9 +7,9 @@ public class StartGame extends JFrame{
 	public StartGame() {
 		super("Start to play");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		Puntaje punt=new Puntaje();
-		DrawGame game=new DrawGame(punt);
 		
+		DrawGame game=new DrawGame();
+		Puntaje punt=new Puntaje(game);
 		this.add(game);
 		this.add(punt,BorderLayout.EAST);
 		this.pack();

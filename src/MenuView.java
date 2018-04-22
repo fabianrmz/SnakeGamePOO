@@ -3,19 +3,16 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class MenuView extends JPanel implements ActionListener, WindowListener{
+public class MenuView extends JPanel implements ActionListener{
 	
 	private Image press;//fondo
-	private Image pressstart;
+	private Image pressstart;//fondo inicio presiona start
 	private Image logo;//imagen logo
 	private JButton Start;//boton para iniciar juego
 	private JButton Score;//ver historial de puntajes
@@ -65,7 +62,7 @@ public class MenuView extends JPanel implements ActionListener, WindowListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==this.Start) {//si presiona start debe iniciar
 			StartGame string=new StartGame();     
-			string.setVisible(true);
+			
 			
 		}else if(e.getSource()==this.Exit) {//presiona para salir
 			System.exit(0);
@@ -78,45 +75,9 @@ public class MenuView extends JPanel implements ActionListener, WindowListener{
 		
 	}
 
-	@Override
-	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
-	@Override
-	public void windowClosed(WindowEvent arg0) {
-		System.exit(0);
 		
-	}
-
-	@Override
-	public void windowClosing(WindowEvent arg0) {
-		
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent arg0) {
-		
-		
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowOpened(WindowEvent arg0) {
-		
-	}	
 
 	
 }
