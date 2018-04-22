@@ -14,6 +14,7 @@ public class StartGame extends JFrame{
 		this.add(punt,BorderLayout.WEST);
 		this.pack();
 		this.setLocationRelativeTo(null); 
+		this.setResizable(false);
 		this.setVisible(true);
 	}
 	
