@@ -11,7 +11,7 @@ public class StartGame extends JFrame{
 		DrawGame game=new DrawGame(punt);
 		
 		this.add(game);
-		this.add(punt,BorderLayout.WEST);
+		this.add(punt,BorderLayout.EAST);
 		this.pack();
 		this.setLocationRelativeTo(null); 
 		this.setResizable(false);
