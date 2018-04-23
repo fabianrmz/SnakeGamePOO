@@ -27,7 +27,7 @@ public class MenuView extends JPanel implements ActionListener{
 		this.logo=new ImageIcon("logo.png").getImage();
 		
 		for(int i=0;i<30;i++) {
-			this.add(new JLabel("                                                                                   "));
+			this.add(new JLabel("                                                           "));
 		}
 		
 		this.Start=new JButton("START GAME");
