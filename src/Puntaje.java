@@ -5,12 +5,11 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Puntaje extends JPanel {
-	
-	private Button Pausa;
 	
 	private Image IMGpuntaje;
 	
@@ -19,14 +18,15 @@ public class Puntaje extends JPanel {
 	private DrawGame g;
 	private int score;
 	private DrawGame game;
+	private JButton pausa;
 	
 	public Puntaje(DrawGame game) {
 		this.game=g;
 		this.setSize(new Dimension(150,600));
 		this.setBackground(Color.decode("#96cc2c"));
 		this.IMGpuntaje=new ImageIcon("score-icon-8.png").getImage();
-		
-		
+		this.pausa=new JButton("Pausa");
+		this.add(pausa);
 	}
 
 
