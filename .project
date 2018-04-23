@@ -26,6 +26,11 @@
 			<location>C:/Users/Fabian Ramirez/eclipse-workspace/SnakeGamePOO/background.gif</location>
 		</link>
 		<link>
+			<name>howtoplay.gif</name>
+			<type>1</type>
+			<location>C:/Users/Fabian Ramirez/eclipse-workspace/SnakeGamePOO/howtoplay.gif</location>
+		</link>
+		<link>
 			<name>logo.png</name>
 			<type>1</type>
 			<location>C:/Users/Fabian Ramirez/eclipse-workspace/SnakeGamePOO/logo.png</location>

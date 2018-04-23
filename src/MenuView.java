@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -24,6 +25,8 @@ public class MenuView extends JPanel implements ActionListener{
 		super();
 		this.menu=menu;
 		this.setPreferredSize(new Dimension(600,600));
+		//comando para ubicacion de botones
+		this.setLayout(null);
 		this.press=new ImageIcon("background.gif").getImage();//definir imagen
 		this.pressstart=new ImageIcon("24eab460d2f094474e47fb01565c8e28.gif").getImage();
 		this.logo=new ImageIcon("logo.png").getImage();
@@ -33,8 +36,13 @@ public class MenuView extends JPanel implements ActionListener{
 		}
 		
 		this.Start=new JButton("START GAME");
+		//Cooredenada Botones
+		this.Start.setBounds(200, 325, 200, 25);
+		
 		this.add(this.Start);
 		this.Start.addActionListener(this);
+		
+		
 		
 		this.Score=new JButton("HISTORY SCORE");
 		this.add(this.Score);
