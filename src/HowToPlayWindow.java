@@ -16,6 +16,7 @@ public class HowToPlayWindow extends JPanel{
 	}
 	public void PaintComponent(Graphics g) {
 		super.paint(g);
+		
 	}
 
 }

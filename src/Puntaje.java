@@ -2,7 +2,9 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -10,17 +12,19 @@ public class Puntaje extends JPanel {
 	
 	private Button Pausa;
 	
+	private Image IMGpuntaje;
+	
 	private int Puntuacion;
 	private int PuntacionMA;
 	private DrawGame g;
 	private int score;
 	private DrawGame game;
+	
 	public Puntaje(DrawGame game) {
 		this.game=g;
 		this.setSize(new Dimension(150,600));
 		this.setBackground(Color.decode("#96cc2c"));
-		this.add(new JLabel("                          "));
-		
+		this.IMGpuntaje=new ImageIcon("score-icon-8.png").getImage();
 		
 		
 	}
@@ -33,7 +37,8 @@ public class Puntaje extends JPanel {
 	
 	public void PaintComponent(Graphics g) {
 		super.paint(g);
-		g.drawString(this.Puntuacion+"", 0, 0);
+		g.drawImage(this.IMGpuntaje, 35, 100, 40, 40, this);
+		g.drawString(this.Puntuacion+""+this.Puntuacion , 50, 100);
 	}
 
 
