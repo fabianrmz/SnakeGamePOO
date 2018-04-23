@@ -15,6 +15,8 @@ public class Menu extends JFrame{
 		this.setResizable(false);
 		this.setVisible(true);
 	}
+	
+	
 	public static void main(String[] args) {
 		Menu Start=new Menu();
 	}

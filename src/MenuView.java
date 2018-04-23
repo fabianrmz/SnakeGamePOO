@@ -58,6 +58,16 @@ public class MenuView extends JPanel implements ActionListener{
 		
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==this.Start) {//si presiona start debe iniciar
