@@ -38,7 +38,7 @@ public class MenuView extends JPanel implements ActionListener{
 		
 		this.Score=new JButton("HISTORY SCORE");
 		this.add(this.Score);
-		this.Start.addActionListener(this);
+		this.Score.addActionListener(this);
 		
 		this.Instrucciones=new JButton("HOW TO PLAY?");
 		this.add(this.Instrucciones);
@@ -72,19 +72,16 @@ public class MenuView extends JPanel implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==this.Start) {//si presiona start debe iniciar
-			menu.dispose();
-			StartGame Start=new StartGame();
-			
-			
-			
-		}else if(e.getSource()==this.Exit) {//presiona para salir
+		if(e.getSource()==this.Exit) {//presiona para salir
 			System.exit(0);
 		}else if(e.getSource()==this.Instrucciones) {
-			//see instructions
+			this.menu.dispose();
+			HowToPlay inst=new HowToPlay();
 			
+		}else  if(e.getSource()==this.Start){
+			this.menu.dispose();
+			StartGame Start=new StartGame();
 		}else {
-			//watch scores
 		}
 		
 	}

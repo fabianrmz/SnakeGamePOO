@@ -31,10 +31,11 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 	private Thread hilo;
 	
 	private ArrayList<Snake> CuerpoCoordenadas;
+	private StartGame nwindow;
 	
-	
-	public DrawGame() {
+	public DrawGame(StartGame a) {
 		super();
+		this.nwindow=a;
 		//Array de coordenadas de la serpiente
 		CuerpoCoordenadas = new ArrayList<>();
 		//Posición inicial
@@ -211,17 +212,18 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 	
 	public void coliciones() {
 		if(this.CuerpoCoordenadas.get(0).getX()<0 || this.CuerpoCoordenadas.get(0).getX()>600) {
-			JOptionPane.showMessageDialog(this,"Juego terminado");
+			opcionesLose();
 			this.Gameplay=false;
+			
 		}
 		else if(this.CuerpoCoordenadas.get(0).getY()<0 || this.CuerpoCoordenadas.get(0).getY()>600) {
-			JOptionPane.showMessageDialog(this,"Juego terminado");
+			opcionesLose();
 			this.Gameplay=false;
 		}
 		else {
 			for(int i=1;i<this.CuerpoCoordenadas.size();i++) {
 				if((this.CuerpoCoordenadas.get(0).getX()  == this.CuerpoCoordenadas.get(i).getX())  && (this.CuerpoCoordenadas.get(0).getY()== this.CuerpoCoordenadas.get(i).getY())) {
-					JOptionPane.showMessageDialog(this,"Juego terminado");
+					opcionesLose();
 					this.Gameplay=false;
 				}
 			}
@@ -236,4 +238,28 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 		
 	}
 
+	
+	public void opcionesLose() {
+		Object[] colours = {"Yes", "No", "Exit Game"};
+
+		int n = JOptionPane.showOptionDialog(null,
+		    "Do you like to play Again?",
+		    "Choose a colour",
+		    JOptionPane.DEFAULT_OPTION,
+		    JOptionPane.QUESTION_MESSAGE,
+		    null,
+		    colours,
+		    colours[0]);
+
+		
+		if(colours[n].equals("Exit Game")) {
+			System.exit(0);
+		}else if(colours[n].equals("No")) {
+			this.nwindow.dispose();
+			Menu mv=new Menu();
+		}else {//yes
+			this.nwindow.dispose();
+			StartGame Start=new StartGame();
+		}
+	}
 }
