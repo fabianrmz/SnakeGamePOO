@@ -18,9 +18,11 @@ public class MenuView extends JPanel implements ActionListener{
 	private JButton Score;//ver historial de puntajes
 	private JButton Instrucciones;//ver instrucciones
 	private JButton Exit;//boton para salir
+	private Menu menu;
 	
-	public MenuView() {
+	public MenuView(Menu menu) {
 		super();
+		this.menu=menu;
 		this.setPreferredSize(new Dimension(600,600));
 		this.press=new ImageIcon("background.gif").getImage();//definir imagen
 		this.pressstart=new ImageIcon("24eab460d2f094474e47fb01565c8e28.gif").getImage();
@@ -71,7 +73,9 @@ public class MenuView extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==this.Start) {//si presiona start debe iniciar
-			StartGame string=new StartGame();     
+			menu.dispose();
+			StartGame Start=new StartGame();
+			
 			
 			
 		}else if(e.getSource()==this.Exit) {//presiona para salir
