@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -132,6 +133,7 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 		g.fillRect(0, 0, this.getWidth(),this.getHeight());
 		//Color verde claro
 		g.setColor(Color.decode("#97d125"));
+		
 		//Crea los cuadrados en multiplos de 20
 		for(int i=0;i<600;i+=40) {
 			g.fillRect(i+20, 0, 20,600);
@@ -142,8 +144,12 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 		for (int i = 0;i<this.CuerpoCoordenadas.size();i++) {
 			g.fillRect(this.CuerpoCoordenadas.get(i).getX(), this.CuerpoCoordenadas.get(i).getY(), 20, 20);//Serpiente
 		}
-		
-		
+		for(int i=0;i<600;i+=20) {
+			g.fillRect(600, i, 20, 20);
+		}
+		g.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		g.drawImage(this.IMGpuntaje, 630, 60,40,40, this);
+		g.drawString(String.valueOf(this.nivel), 690, 80);
 		g.fillRect(this.comidaX, this.comidaY, 20, 20);//Comida
 		repaint();
 		
