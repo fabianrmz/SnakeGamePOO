@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class DrawGame extends JPanel implements Runnable, KeyListener {
 	
@@ -25,7 +27,8 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 				cuerpo,
 				 posx,
 				 posy,
-				 nivel;
+				 nivel,
+				 mejornivel;
 	
 	private Image IMGpuntaje;
 
@@ -34,6 +37,10 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 
 	
 	private Thread hilo;
+	
+	private static final FileNameExtensionFilter extension=new FileNameExtensionFilter("Arvivos .txt","txt");
+	
+	private JFileChooser FC;
 	
 	private ArrayList<Snake> CuerpoCoordenadas;
 	private StartGame nwindow;
@@ -150,6 +157,7 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 		g.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		g.drawImage(this.IMGpuntaje, 630, 60,40,40, this);
 		g.drawString(String.valueOf(this.nivel), 690, 80);
+		g.drawString("Mejor puntaje (Imagen)", 630,140 );
 		g.fillRect(this.comidaX, this.comidaY, 20, 20);//Comida
 		repaint();
 		
@@ -245,6 +253,11 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 		
 	}
 	
+	public void mejornivel() {
+		FC= new JFileChooser();
+		FC.setFileFilter(extension);
+		FC.setDialogTitle("Ruta a guardar tu historial");
+	}
 	
 	public void opcionesLose() {
 		Object[] colours = {"Yes", "No", "Exit Game"};
