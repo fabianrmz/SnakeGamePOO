@@ -1,11 +1,13 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -21,12 +23,14 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 				comidaY,
 				cuerpo,
 				 posx,
-				 posy;
+				 posy,
+				 nivel;
+	
+	private Image IMGpuntaje;
+
 	
 	private Random random;
-	
-	
-	private int nivel;
+
 	
 	private Thread hilo;
 	
@@ -52,7 +56,9 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 		this.Bderecha=false;
 		this.Bizquierda=false;
 		//Dimensiones
-		this.setPreferredSize(new Dimension(600,600));
+		this.setPreferredSize(new Dimension(800,600));
+		//Imagenes
+		this.IMGpuntaje=new ImageIcon("score-icon-8.png").getImage();
 		//Keylistener
 		this.addKeyListener(this);
 		setFocusable(true);
@@ -211,33 +217,28 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 	}
 	
 	public void coliciones() {
-		if(this.CuerpoCoordenadas.get(0).getX()<0 || this.CuerpoCoordenadas.get(0).getX()>600) {
-			opcionesLose();
+		if(this.CuerpoCoordenadas.get(0).getX()<0 || this.CuerpoCoordenadas.get(0).getX()>=600) {
 			this.Gameplay=false;
+			opcionesLose();
+			
 			
 		}
-		else if(this.CuerpoCoordenadas.get(0).getY()<0 || this.CuerpoCoordenadas.get(0).getY()>600) {
-			opcionesLose();
+		else if(this.CuerpoCoordenadas.get(0).getY()<0 || this.CuerpoCoordenadas.get(0).getY()>=600) {
 			this.Gameplay=false;
+			opcionesLose();
+			
 		}
 		else {
 			for(int i=1;i<this.CuerpoCoordenadas.size();i++) {
 				if((this.CuerpoCoordenadas.get(0).getX()  == this.CuerpoCoordenadas.get(i).getX())  && (this.CuerpoCoordenadas.get(0).getY()== this.CuerpoCoordenadas.get(i).getY())) {
-					opcionesLose();
 					this.Gameplay=false;
+					opcionesLose();
 				}
 			}
 		}
 		
 	}
 	
-	
-	
-	public int getPuntuacion() {
-		return this.nivel;
-		
-	}
-
 	
 	public void opcionesLose() {
 		Object[] colours = {"Yes", "No", "Exit Game"};
