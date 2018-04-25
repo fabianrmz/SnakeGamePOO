@@ -14,8 +14,11 @@ public class HowToPlayWindow extends JPanel{
 		this.background=new ImageIcon("howtoplay.gif").getImage();
 		
 	}
-	public void PaintComponent(Graphics g) {
-		super.paint(g);
+	
+	
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		g.drawImage(this.background, 0, 0, 972, 622, this);
 		
 	}
 
