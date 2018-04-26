@@ -97,10 +97,19 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
         	this.Barriba=false;
     		this.Babajo=false;
     		this.Bderecha=true;
+        }else if(e.getKeyCode() == KeyEvent.VK_ESCAPE  ) {
+        	pausa();
         }
         repaint();
     }
 	
+	private void pausa() {
+		hilo.suspend();
+		opcionesPause();
+		
+		
+	}
+
 	//Crea un nuevo número random en caso de conseguir la fruta
 	public void Random() {
 		int x=random.nextInt(600);
@@ -264,15 +273,18 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 
 		int n = JOptionPane.showOptionDialog(null,
 		    "Do you like to play Again?",
-		    "Choose a colour",
+		    "Your score: "+this.nivel,
 		    JOptionPane.DEFAULT_OPTION,
 		    JOptionPane.QUESTION_MESSAGE,
 		    null,
 		    colours,
 		    colours[0]);
 
-		
-		if(colours[n].equals("Exit Game")) {
+		if(n==-1) {
+			this.nwindow.dispose();
+			Menu mv=new Menu();
+		}
+		else if(colours[n].equals("Exit Game")) {
 			System.exit(0);
 		}else if(colours[n].equals("No")) {
 			this.nwindow.dispose();
@@ -281,5 +293,28 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 			this.nwindow.dispose();
 			StartGame Start=new StartGame();
 		}
+	}public void opcionesPause() {
+		Object[] colours = {"Continue", "Exit"};
+
+		int n = JOptionPane.showOptionDialog(null,
+		    "P A U S E",
+		    "Your current score: "+this.nivel,
+		    JOptionPane.DEFAULT_OPTION,
+		    JOptionPane.QUESTION_MESSAGE,
+		    null,
+		    colours,
+		    colours[0]);
+		if(n==-1) {
+			this.hilo.resume();
+		}else if(colours[n].equals("Exit")) {
+			this.nwindow.dispose();
+			Menu mv=new Menu();
+		}
+		else {
+			this.hilo.resume();
+			
+		}
+		
+		
 	}
 }
