@@ -5,7 +5,7 @@ public class HowToPlay extends JFrame{
 		super("H O W  T O  P L A Y ?       S N A K E");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		this.add(new HowToPlayWindow());
+		this.add(new HowToPlayWindow(this));
 		this.pack();
 		
 		this.setResizable(false);

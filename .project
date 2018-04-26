@@ -21,9 +21,19 @@
 			<location>C:/Users/Fabian Ramirez/eclipse-workspace/SnakeGamePOO/24eab460d2f094474e47fb01565c8e28.gif</location>
 		</link>
 		<link>
+			<name>arrowKeys-300x205.png</name>
+			<type>1</type>
+			<location>C:/Users/Fabian Ramirez/eclipse-workspace/SnakeGamePOO/arrowKeys-300x205.png</location>
+		</link>
+		<link>
 			<name>background.gif</name>
 			<type>1</type>
 			<location>C:/Users/Fabian Ramirez/eclipse-workspace/SnakeGamePOO/background.gif</location>
+		</link>
+		<link>
+			<name>computer_key_Esc.png</name>
+			<type>1</type>
+			<location>C:/Users/Fabian Ramirez/eclipse-workspace/SnakeGamePOO/computer_key_Esc.png</location>
 		</link>
 		<link>
 			<name>howtoplay.gif</name>
