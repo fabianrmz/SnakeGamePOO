@@ -13,7 +13,7 @@ public class StartGame extends JFrame{
 		Puntaje punt=new Puntaje(game);
 		this.add(game);
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLocation( (pantalla.width - 800) / 2, (pantalla.height - 600) / 2);
+		this.setLocation( (pantalla.width - 600) / 2, (pantalla.height - 800) / 2);
 		this.setResizable(false);
 		this.pack();
 		this.setVisible(true);
