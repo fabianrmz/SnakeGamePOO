@@ -5,6 +5,13 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -27,16 +34,24 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 				cuerpo,
 				 posx,
 				 posy,
-				 nivel,
-				 mejornivel;
-	
-	private Image IMGpuntaje;
+				 nivel;
 
+	String mejorpuntaje;
+	
+	private Image IMGpuntaje,
+				  IMGmejorPuntaje;
+
+	File puntaje=new File("Puntaje.txt");
 	
 	private Random random;
+	
+	private BufferedReader br;
+	
+	private PrintWriter pw;
 
 	
 	private Thread hilo;
+	
 	
 	private static final FileNameExtensionFilter extension=new FileNameExtensionFilter("Arvivos .txt","txt");
 	
@@ -58,15 +73,18 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 		//Crea la posición de la fruta random
 		random = new Random();
 		this.Random();
+		//Buscar el mejor puntaje
+		this.mejorpuntaje();
 		//Booleanos de movimiento
 		this.Barriba=false;
 		this.Babajo=false;
 		this.Bderecha=false;
 		this.Bizquierda=false;
 		//Dimensiones
-		this.setPreferredSize(new Dimension(800,600));
+		this.setPreferredSize(new Dimension(600,800));
 		//Imagenes
 		this.IMGpuntaje=new ImageIcon("score-icon-8.png").getImage();
+		this.IMGmejorPuntaje= new ImageIcon("black_star_u2605_icon_256x256.png").getImage();
 		//Keylistener
 		this.addKeyListener(this);
 		setFocusable(true);
@@ -161,13 +179,17 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 			g.fillRect(this.CuerpoCoordenadas.get(i).getX(), this.CuerpoCoordenadas.get(i).getY(), 20, 20);//Serpiente
 		}
 		for(int i=0;i<600;i+=20) {
-			g.fillRect(600, i, 20, 20);
+			g.fillRect(i, 600, 20, 20);
 		}
-		g.setFont(new Font("Times New Roman", Font.BOLD, 18));
-		g.drawImage(this.IMGpuntaje, 630, 60,40,40, this);
-		g.drawString(String.valueOf(this.nivel), 690, 80);
-		g.drawString("Mejor puntaje (Imagen)", 630,140 );
-		g.fillRect(this.comidaX, this.comidaY, 20, 20);//Comida
+		g.setFont(new Font("Times New Roman", Font.BOLD, 25));
+		//Imágenes
+		g.drawImage(this.IMGpuntaje, 60, 630,40,40, this);
+		g.drawImage(this.IMGmejorPuntaje, 400, 630, 40, 40, this);
+		//Puntaje
+		g.drawString(String.valueOf(this.nivel), 150, 660);
+		g.drawString(this.mejorpuntaje, 450, 660);
+		//Comida
+		g.fillRect(this.comidaX, this.comidaY, 20, 20);
 		repaint();
 		
 	
@@ -262,13 +284,47 @@ public class DrawGame extends JPanel implements Runnable, KeyListener {
 		
 	}
 	
-	public void mejornivel() {
-		FC= new JFileChooser();
-		FC.setFileFilter(extension);
-		FC.setDialogTitle("Ruta a guardar tu historial");
+	public void mejorpuntaje() {
+		try {
+			if(this.puntaje.exists()) {
+				
+				br=new BufferedReader(new FileReader(this.puntaje));
+				Integer linea=0;
+				String lineas="";
+				int contador=0;
+				int masAlto = 0;
+				ArrayList<Integer> puntajes= new ArrayList<>();
+				while((lineas=br.readLine())!=null) {
+					linea=Integer.parseInt(lineas);
+					puntajes.add(linea);
+				}
+				for (int i=0;i<puntajes.size();i++) {
+					if(puntajes.get(i)>masAlto) {
+						masAlto=puntajes.get(i);
+					}
+				}
+				this.mejorpuntaje=String.valueOf(masAlto);
+			}
+			else {
+				this.mejorpuntaje="0";
+				this.puntaje.createNewFile();
+			}
+			
+		} catch (IOException |NullPointerException e) {
+			this.mejorpuntaje="0";
+		} 
 	}
 	
 	public void opcionesLose() {
+		
+		try {
+			pw = new PrintWriter(new FileWriter(this.puntaje,true));
+			pw.println(String.valueOf(this.nivel));
+			pw.close();
+		} catch (IOException e) {
+			JOptionPane.showInternalMessageDialog(this, "No se pudo guardar el historial del punatje");
+		}
+		
 		Object[] colours = {"Yes", "No", "Exit Game"};
 
 		int n = JOptionPane.showOptionDialog(null,
