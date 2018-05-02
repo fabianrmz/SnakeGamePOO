@@ -16,7 +16,6 @@ public class MenuView extends JPanel implements ActionListener{
 	private Image pressstart;//fondo inicio presiona start
 	private Image logo;//imagen logo
 	private JButton Start;//boton para iniciar juego
-	private JButton Score;//ver historial de puntajes
 	private JButton Instrucciones;//ver instrucciones
 	private JButton Exit;//boton para salir
 	private Menu menu;
@@ -41,6 +40,7 @@ public class MenuView extends JPanel implements ActionListener{
 		
 		this.add(this.Start);
 		this.Start.addActionListener(this);
+		
 		
 		this.Instrucciones=new JButton("HOW TO PLAY?");
 		this.Instrucciones.setBounds(200, 360, 200, 25);
