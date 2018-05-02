@@ -42,20 +42,13 @@ public class MenuView extends JPanel implements ActionListener{
 		this.add(this.Start);
 		this.Start.addActionListener(this);
 		
-		
-		
-		this.Score=new JButton("HISTORY SCORE");
-		this.Score.setBounds(200, 360, 200, 25);
-		this.add(this.Score);
-		this.Score.addActionListener(this);
-		
 		this.Instrucciones=new JButton("HOW TO PLAY?");
-		this.Instrucciones.setBounds(200, 395, 200, 25);
+		this.Instrucciones.setBounds(200, 360, 200, 25);
 		this.add(this.Instrucciones);
 		this.Instrucciones.addActionListener(this);
 		
 		this.Exit=new JButton("EXIT");
-		this.Exit.setBounds(200, 430, 200, 25);
+		this.Exit.setBounds(200, 395, 200, 25);
 		this.add(this.Exit);
 		this.Exit.addActionListener(this);
 		
