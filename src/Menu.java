@@ -1,3 +1,6 @@
+//Erick David Mendoza Velasco A01631093
+
+
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
