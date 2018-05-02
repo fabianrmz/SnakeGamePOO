@@ -1,4 +1,6 @@
 //Erick David Mendoza Velasco A01631093
+//Óscar Fabián Ramírez González A01630024
+//Programación Orientado a Objetos
 
 
 import java.awt.BorderLayout;
